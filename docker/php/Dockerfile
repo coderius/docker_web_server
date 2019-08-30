@@ -108,9 +108,11 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
 #     composer clear-cache
 
 # Enable mod_rewrite for images with apache
-#RUN if command -v a2enmod >/dev/null 2>&1; then \
+# RUN if command -v a2enmod >/dev/null 2>&1; then \
 #        a2enmod rewrite headers \
 #    ;fi
+
+# RUN a2enmod rewrite
 
 # Install Yii framework bash autocompletion
 #RUN curl -L https://raw.githubusercontent.com/yiisoft/yii2/master/contrib/completion/bash/yii \

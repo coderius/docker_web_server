@@ -1,0 +1,16 @@
+# phpstorm project files
+.idea
+
+# netbeans project files
+nbproject
+
+# composer vendor dir
+public-html/*
+docker/mariadb/*
+
+# exception to the rule
+!public-html/.gitkeep
+!docker/mariadb/.gitkeep
+
+
+
