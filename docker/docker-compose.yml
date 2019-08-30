@@ -1,0 +1,70 @@
+version: "3"
+services:
+  apache:
+    container_name: apache
+    image: httpd:2.4
+    # volumes:
+    #   - ./../public-html:/usr/local/apache2/htdocs
+    #   - ./httpd/httpd.conf:/usr/local/apache2/conf/httpd.conf
+    depends_on:
+      - php
+
+  nginx:
+    container_name: nginx
+    image: nginx:1.13
+    ports:
+      - 80:80
+    volumes:
+      - /../public-html:/var/www/html
+      - /nginx/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - apache
+
+  php:
+    container_name: php
+    build:
+      context: ./php
+      dockerfile: Dockerfile
+      args:
+        - PHP_BASE_IMAGE_VERSION=${PHP_BASE_IMAGE_VERSION}
+    # volumes:
+    #   - ./../public-html:/var/www/html
+    #   - ./php/php.ini:/usr/local/etc/php/php.ini
+    depends_on:
+      - mariadb
+
+  mariadb:
+    image: mariadb:10.4
+    container_name: mariadb
+    volumes:
+      - volume_db:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - 3306:3306
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    links:
+      - "mariadb:db"
+    restart: always
+    ports:
+     - 8080:80
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      # MYSQL_USER: ${MYSQL_USER}
+      # MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    depends_on:
+      - mariadb
+
+volumes:
+ volume_db:
+       driver: local
+       driver_opts:
+           type: none
+           o: bind
+           # SSD
+           device: /mariadb
