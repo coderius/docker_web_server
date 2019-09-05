@@ -28,15 +28,23 @@ Or first get the container ID
 docker ps
 docker inspect <container id> | grep "IPAddress"
 ```
-## Run commands inside php service (composer, unit tests etc.)
+### Composer commands for sites in docker
+Since the root path to the projects on the web server in docker is `/var/www/html/`. Need to go to this folder and and work internally with projects.
 
-Go to folder sie-name-dir and show all files and dirs
+The first way to start composer via `docker exec`
 ```
-sudo docker exec -w /var/www/html/site-name-dir php ls -l
+sudo docker exec -w /var/www/html php git clone your_repo_url
+sudo docker exec -w /var/www/html/your_site php php composer.phar update
+```
 
+The second way by going to container bash.
+Go to server bash by container name 'php'
 ```
-If in root folder exists composer.phar and composer.json.
-Run composer update to require modules by composer.json:
+sudo docker exec -it php bash
 ```
-sudo docker exec -w /var/www/html/site-name-dir php php composer.phar update
+And run commands like:
+```
+git clone your_repo_url
+cd ./your_repo_url
+php composer.phar update
 ```
