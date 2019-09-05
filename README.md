@@ -29,9 +29,22 @@ docker ps
 docker inspect <container id> | grep "IPAddress"
 ```
 ### Composer commands for sites in docker
+Since the root path to the projects on the web server in docker is `/var/www/html/`. Need to go to this folder and and work internally with projects.
+
+The first way to start composer via `docker exec`
 ```
-sudo docker-compose exec php composer update
+sudo docker exec -w /var/www/html php git clone your_repo_url
+sudo docker exec -w /var/www/html/your_site php php composer.phar update
 ```
-Or go to bash and run commands
-```sudo docker exec -it php bash
+
+The second way by going to container bash.
+Go to server bash by container name 'php'
+```
+sudo docker exec -it php bash
+```
+And run commands like:
+```
+git clone your_repo_url
+cd ./your_repo_url
+php composer.phar update
 ```
