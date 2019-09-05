@@ -28,3 +28,7 @@ Or first get the container ID
 docker ps
 docker inspect <container id> | grep "IPAddress"
 ```
+### Composer commands for sites in docker
+```
+sudo docker-compose exec php composer update
+```
