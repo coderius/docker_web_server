@@ -32,3 +32,6 @@ docker inspect <container id> | grep "IPAddress"
 ```
 sudo docker-compose exec php composer update
 ```
+Or go to bash and run commands
+```sudo docker exec -it php bash
+```
