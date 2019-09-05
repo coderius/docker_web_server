@@ -88,18 +88,18 @@ ENV PHP_USER_ID=33 \
 # Add configuration files
 # COPY image-files/ /
 
+# Install composer
+RUN curl -sS https://getcomposer.org/installer | php -- \
+        && chmod +x composer.phar && mv composer.phar /usr/local/bin/composer \
+        # --filename=composer \
+        # --install-dir=/usr/local/bin && \
+        composer --version \
+        composer clear-cache
+
 # Add GITHUB_API_TOKEN support for composer
 # RUN chmod 700 \
 #         /usr/local/bin/docker-php-entrypoint \
 #         /usr/local/bin/composer
-
-# Install composer
-RUN curl -sS https://getcomposer.org/installer | php -- \
-        && chmod +x composer.phar && mv composer.phar /usr/bin/composer \
-        # --filename=composer.phar \
-        # --install-dir=/usr/local/bin && \
-        composer --version \
-        composer clear-cache
 
 # Install composer plugins
 # RUN composer global require --optimize-autoloader \
@@ -108,15 +108,15 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
 #     composer clear-cache
 
 # Enable mod_rewrite for images with apache
-# RUN if command -v a2enmod >/dev/null 2>&1; then \
-#        a2enmod rewrite headers \
-#    ;fi
+RUN if command -v a2enmod >/dev/null 2>&1; then \
+       a2enmod rewrite headers \
+   ;fi
 
-# RUN a2enmod rewrite
+RUN a2enmod rewrite
 
 # Install Yii framework bash autocompletion
 #RUN curl -L https://raw.githubusercontent.com/yiisoft/yii2/master/contrib/completion/bash/yii \
 #        -o /etc/bash_completion.d/yii
 
 # Application environment
-# WORKDIR /app
+# WORKDIR /php
