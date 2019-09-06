@@ -2,6 +2,15 @@
 
 Put your website to public-html folder.
 
+## Config for mariadb connection
+Port - 3306
+User - root
+Password - root
+
+Find the IP address that has been assigned to the container `mariadb` when service is started by `docker-compose start`:
+```
+docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mariadbtest
+```
 ### Start
 Go to docker folder in terminal and run next commands to build an services.
 
