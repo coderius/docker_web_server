@@ -57,3 +57,40 @@ git clone your_repo_url
 cd ./your_repo_url
 php composer.phar update
 ```
+### Install xhprof in php bash
+
+Link to extention repo https://github.com/longxinH/xhprof
+When services running go to bash and run commands:
+
+```
+git clone https://github.com/longxinH/xhprof xhprof
+cd xhprof/extension
+phpize
+./configure --with-php-config=/usr/bin/php-config
+sudo make && sudo make install
+mkdir /var/tmp/xhprof
+```
+To find needed paths run commands step by step
+```
+find /usr -name phpize -type f
+find /usr -name php -type f
+find /usr -name php-config -type f
+```
+Output:
+```
+root@3e300efa12f5:/xhprof/extension# find /usr -name phpize -type f
+/usr/local/bin/phpize
+root@3e300efa12f5:/xhprof/extension# find /usr -name php -type f
+/usr/local/bin/php
+root@3e300efa12f5:/xhprof/extension# find /usr -name php-config -type f
+/usr/local/bin/php-config
+
+```
+Next add config to php.ini in docker_web_server/docker/php/php.ini
+```
+[xhprof]
+extension=xhprof.so
+xhprof.output_dir="/var/tmp/xhprof"
+```
+Then restart services and check updates by phpinfo() in some web page
+If in output config has row `xhprof` it installed to php
