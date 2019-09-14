@@ -2,15 +2,6 @@
 
 Put your website to public-html folder.
 
-## Config for mariadb connection
-Port - 3306
-User - root
-Password - root
-
-Find the IP address that has been assigned to the container `mariadb` when service is started by `docker-compose start`:
-```
-docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mariadbtest
-```
 ### Start
 Go to docker folder in terminal and run next commands to build an services.
 
@@ -24,7 +15,27 @@ Stop servises:
 sudo docker-compose stop
 ```
 
+## Config for mariadb connection
+Port - 3306
+User - root
+Password - root
+
+Find the IP address that has been assigned to the container `mariadb` when service is started by `docker-compose start`:
+First way:
+```
+docker ps
+docker inspect <container id> | grep "IPAddress"
+```
+Second way:
+```
+docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mariadbtest
+```
+
 ### Use url in browser.
+*Simple way to open wedsite in browser by link* `http://localhost:8880/site_dir`.
+
+*Or by passing ip in http.*
+
 To get a Docker container's IP address from the host run command.
 Which will return just the IP address for use in browser.
 **If you rebuild image and containers then ip can change.
@@ -57,40 +68,15 @@ git clone your_repo_url
 cd ./your_repo_url
 php composer.phar update
 ```
-### Install xhprof in php bash
 
-Link to extention repo https://github.com/longxinH/xhprof
-When services running go to bash and run commands:
+To exit from bash pass commant in terminal `exit` .
 
+### Debugging docker containers.
+Show started containers:
 ```
-git clone https://github.com/longxinH/xhprof xhprof
-cd xhprof/extension
-phpize
-./configure --with-php-config=/usr/bin/php-config
-sudo make && sudo make install
-mkdir /var/tmp/xhprof
+sudo docker ps
 ```
-To find needed paths run commands step by step
+If container can`t starying, show logs by container name:
 ```
-find /usr -name phpize -type f
-find /usr -name php -type f
-find /usr -name php-config -type f
+sudo docker logs php
 ```
-Output:
-```
-root@3e300efa12f5:/xhprof/extension# find /usr -name phpize -type f
-/usr/local/bin/phpize
-root@3e300efa12f5:/xhprof/extension# find /usr -name php -type f
-/usr/local/bin/php
-root@3e300efa12f5:/xhprof/extension# find /usr -name php-config -type f
-/usr/local/bin/php-config
-
-```
-Next add config to php.ini in docker_web_server/docker/php/php.ini
-```
-[xhprof]
-extension=xhprof.so
-xhprof.output_dir="/var/tmp/xhprof"
-```
-Then restart services and check updates by phpinfo() in some web page
-If in output config has row `xhprof` it installed to php

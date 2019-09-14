@@ -114,6 +114,7 @@ RUN if command -v a2enmod >/dev/null 2>&1; then \
 
 RUN a2enmod rewrite
 
+RUN echo 'ServerName localhost' >> /etc/apache2/apache2.conf
 # Install Yii framework bash autocompletion
 #RUN curl -L https://raw.githubusercontent.com/yiisoft/yii2/master/contrib/completion/bash/yii \
 #        -o /etc/bash_completion.d/yii

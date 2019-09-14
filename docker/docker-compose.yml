@@ -31,6 +31,10 @@ services:
     volumes:
       - ./../public-html:/var/www/html
       - ./php/php.ini:/usr/local/etc/php/php.ini
+      # - ./apache/apache2.conf:/etc/apache2/apache2.conf
+      # - ./apache/httpd.conf:/usr/local/apache2/conf/httpd.conf
+    ports:
+     - 8880:80  
     depends_on:
       - mariadb
 
