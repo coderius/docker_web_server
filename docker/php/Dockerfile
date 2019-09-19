@@ -81,9 +81,9 @@ RUN pecl install -f xdebug && docker-php-ext-enable xdebug \
 
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- \
-        && chmod +x composer.phar && mv composer.phar /usr/local/bin/composer \
-        # --filename=composer \
-        # --install-dir=/usr/local/bin && \
+        --filename=composer \
+        --install-dir=/usr/local/bin && \
+        chmod +x /usr/local/bin/composer \
         composer --version \
         composer clear-cache
 
