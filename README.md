@@ -86,6 +86,8 @@ Xdebug install with php service and ready to use in any ide like vscode or netbe
 
 ##### Steps to useage xdebug with vscode
 
+**!Attention. It is important to check if port 9000 is free and the firewall settings**
+
 First install **PHP Debug** and **PHP IntelliSense** extentions in vscode extentions menu (author Felix Becker)
 
 1. Go to folder `docker_web_server` and create configuration file going to the menu `debug -> Add configuration`. 
