@@ -147,3 +147,15 @@ http://localhost:8880/coderius.biz.ua/?XDEBUG_SESSION_START=netbeans-xdebug
 2. Open menu/config by right click in root project folder.
 
 _the text is still being written..._
+
+### PhpUnit
+Go to container
+```
+sudo docker exec -it php bash
+```
+
+Run tests in project folder inside `root@1f29f223665a:/var/www/html# `:
+
+```
+vendor/bin/phpunit
+```
