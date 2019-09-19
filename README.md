@@ -32,7 +32,7 @@ docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mar
 ```
 
 ### Use url in browser.
-*Simple way to open wedsite in browser by link* `http://localhost:8880/site_dir`.
+*Simple way to open website in browser by link* `http://localhost:8880/site_dir`.
 
 *Or by passing ip in http.*
 
@@ -80,3 +80,68 @@ If container can`t starying, show logs by container name:
 ```
 sudo docker logs php
 ```
+
+### Using Xdebug with docker.
+Xdebug install with php service and ready to use in any ide like vscode or netbeanse.
+
+##### Steps to useage xdebug with vscode
+
+First install **PHP Debug** and **PHP IntelliSense** extentions in vscode extentions menu (author Felix Becker)
+
+1. Go to folder `docker_web_server` and create configuration file going to the menu `debug -> Add configuration`. 
+`launch.json` contains this code:
+
+```
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Listen for XDebug",
+            "type": "php",
+            "request": "launch",
+            "port": 9000,
+            "log": true,
+            "pathMappings": {
+                "/var/www/html": "${workspaceFolder}/public-html"
+            },
+            "xdebugSettings": {
+                "max_data": 65535,
+                "show_hidden": 1,
+                "max_children": 100,
+                "max_depth": 5
+            }
+        },
+        {
+            "name": "Launch currently open script",
+            "type": "php",
+            "request": "launch",
+            "program": "${file}",
+            "cwd": "${fileDirname}",
+            "port": 9000
+        }
+    ]
+}
+```
+2. Next open `docker_web_server/docker/php/php.ini` and find `xdebug.idekey="docker-xdebug"` .This is key to pass in browser url window to hendler xdebug request.
+
+3. Start docker services:
+```
+sudo docker-compose up -d
+```
+
+4. Open needed php file inside `docker_web_server/public-html`  and set breakpoint
+
+5. In menu `debugging` click to `start debugging`
+
+6. Open in browser url with needed project:
+```
+http://localhost:8880/coderius.biz.ua/?XDEBUG_SESSION_START=netbeans-xdebug
+```
+7. Xdebug most stop script in breakpoint in vscode.
+
+##### Steps to useage xdebug with netbeanse
+
+1. Add prodject to ide.
+
+2. Open menu/config by right click in root project folder.
+
+_the text is still being written..._

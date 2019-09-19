@@ -66,24 +66,15 @@ RUN printf "\n" | pecl install \
         imagick \
         mongodb
 
-# Check if Xdebug extension need to be compiled
-RUN cd /tmp && \
-    git clone git://github.com/xdebug/xdebug.git && \
-    cd xdebug && \
-    git checkout 2.7.2 && \
-    phpize && \
-    ./configure --enable-xdebug && \
-    make && \
-    make install && \
-    rm -rf /tmp/xdebug
+# Xdebug extension
+RUN pecl install -f xdebug && docker-php-ext-enable xdebug \
+    && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" >> /usr/local/etc/php/php.ini \
+    && touch /tmp/xdebub.log
 
-# Environment settings
-ENV PHP_USER_ID=33 \
-    PHP_ENABLE_XDEBUG=0 \
-    PATH=/app:/app/vendor/bin:/root/.composer/vendor/bin:$PATH \
-    TERM=linux \
-    VERSION_PRESTISSIMO_PLUGIN=^0.3.7 \
-    COMPOSER_ALLOW_SUPERUSER=1
+
+RUN pecl install -f xdebug \
+    && touch /tmp/xdebub.log \
+    && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini;
 
 # Add configuration files
 # COPY image-files/ /
