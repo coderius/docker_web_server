@@ -86,6 +86,8 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
         chmod +x /usr/local/bin/composer \
         composer --version \
         composer clear-cache
+#Plugin 'composer-asset-plugin' for yii2
+RUN composer global require "fxp/composer-asset-plugin:^1.4.1"
 
 # Add GITHUB_API_TOKEN support for composer
 # RUN chmod 700 \
