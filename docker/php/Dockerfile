@@ -72,9 +72,9 @@ RUN pecl install -f xdebug && docker-php-ext-enable xdebug \
     && touch /tmp/xdebub.log
 
 
-RUN pecl install -f xdebug \
-    && touch /tmp/xdebub.log \
-    && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini;
+#RUN pecl install -f xdebug \
+#    && touch /tmp/xdebub.log \
+#    && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini;
 
 # Add configuration files
 # COPY image-files/ /
