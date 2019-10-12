@@ -32,11 +32,11 @@ docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mar
 ```
 **MariaDb usage command line**
 
-When service running go inside container
+When service running go inside container:
 ```
 sudo docker exec -it mariadb  bash
 ```
-Past login and password
+Past login and password:
 ```
 mysql -u root -p
 ```
