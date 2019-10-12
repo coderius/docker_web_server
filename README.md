@@ -15,7 +15,7 @@ Stop servises:
 sudo docker-compose stop
 ```
 
-## Config for mariadb connection
+## Config for mariadb connection and usage
 Port - 3306
 User - root
 Password - root
@@ -30,6 +30,16 @@ Second way:
 ```
 docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mariadbtest
 ```
+**MariaDb usage command line**
+When service running go inside container
+```
+sudo docker exec -it mariadb  bash
+```
+Past login and password
+```
+mysql -u root -p
+```
+And work in mysql cli...
 
 ### Use url in browser.
 *Simple way to open website in browser by link* `http://localhost:8880/site_dir`.
