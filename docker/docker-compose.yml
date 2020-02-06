@@ -21,11 +21,30 @@ services:
   #   depends_on:
   #     - apache
 
+#php or php5.6
+  # php:
+  #   container_name: php
+  #   build:
+  #     context: ./php
+  #     dockerfile: Dockerfile
+  #     args:
+  #       - PHP_BASE_IMAGE_VERSION=${PHP_BASE_IMAGE_VERSION}
+  #   volumes:
+  #     - ./../public-html:/var/www/html
+  #     - ./php/php.ini:/usr/local/etc/php/php.ini
+  #     # - ./apache/apache2.conf:/etc/apache2/apache2.conf
+  #     # - ./apache/httpd.conf:/usr/local/apache2/conf/httpd.conf
+    
+  #   ports:
+  #    - 8880:80  
+  #   depends_on:
+  #     - mariadb
+
   php:
-    container_name: php
+    container_name: php-${PHP_BASE_IMAGE_VERSION}
     build:
       context: ./php
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile-${PHP_BASE_IMAGE_VERSION}
       args:
         - PHP_BASE_IMAGE_VERSION=${PHP_BASE_IMAGE_VERSION}
     volumes:
@@ -37,7 +56,7 @@ services:
     ports:
      - 8880:80  
     depends_on:
-      - mariadb
+      - mariadb    
 
   mariadb:
     image: mariadb:10.4

@@ -140,6 +140,8 @@ http://localhost:8880/coderius.biz.ua/?XDEBUG_SESSION_START=netbeans-xdebug
 ```
 7. Xdebug most stop script in breakpoint in vscode.
 
+! If debugging not works, put off firewall
+
 ##### Steps to useage xdebug with netbeanse
 
 1. Add prodject to ide.
