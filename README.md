@@ -26,7 +26,7 @@ First way:
 docker ps
 docker inspect <container id> | grep "IPAddress"
 ```
-In windows 
+In windows:
 ```
 docker ps
 docker inspect <container id> | findstr "IPAddress"
