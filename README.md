@@ -26,6 +26,12 @@ First way:
 docker ps
 docker inspect <container id> | grep "IPAddress"
 ```
+In windows 
+```
+docker ps
+docker inspect <container id> | findstr "IPAddress"
+```
+
 Second way:
 ```
 docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mariadbtest
