@@ -140,7 +140,28 @@ First install **PHP Debug** and **PHP IntelliSense** extentions in vscode extent
     ]
 }
 ```
-2. Next open `docker_web_server/docker/php/php.ini` and find `xdebug.idekey="docker-xdebug"` .This is key to pass in browser url window to hendler xdebug request.
+2. Next open `docker_web_server/docker/php/php.ini` 
+Config in php.ini see below:
+```
+max_execution_time=35
+display_errors=1
+error_reporting=E_ALL
+memory_limit = 256M
+
+[xdebug]
+xdebug.default_enable=1
+xdebug.remote_enable=1
+xdebug.remote_port=9000
+xdebug.remote_host=host.docker.internal
+xdebug.idekey=VSCODE
+xdebug.remote_connect_back=0
+xdebug.remote_autostart=1
+xdebug.remote_handler=dbgp
+xdebug.remote_log=/tmp/xdebug.log
+```
+In Windows in docker settings panel needed set to sharing worked directory (where located web project files)
+
+In chrome browser upload xDebug extention.
 
 3. Start docker services:
 ```
@@ -153,7 +174,7 @@ sudo docker-compose up -d
 
 6. Open in browser url with needed project:
 ```
-http://localhost:8880/coderius.biz.ua/?XDEBUG_SESSION_START=netbeans-xdebug
+http://localhost:8880/site-domain/backend/web/portfoleo-photo/index?XDEBUG_SESSION_START=VSCODE
 ```
 7. Xdebug most stop script in breakpoint in vscode.
 
