@@ -197,8 +197,16 @@ Run tests in project folder inside `root@1f29f223665a:/var/www/html# `:
 ```
 vendor/bin/phpunit
 ```
+like run all tests in folder tests:
+```
+./vendor/bin/phpunit tests
+```
 
 Set alias to phpunit in container:
 ```
 alias phpunit="/var/www/html/{your-proj}/vendor/bin/phpunit"
+```
+More commands look in help:
+```
+phpunit --help
 ```
